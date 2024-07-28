@@ -6,6 +6,8 @@ fn minimax(
     is_maxing: bool,
     active_char: char,
     human_char: char,
+    mut alpha: f32,
+    mut beta: f32,
 ) -> f32 {
     let other_char: char = if active_char == 'X' { 'O' } else { 'X' };
 
@@ -26,10 +28,28 @@ fn minimax(
         for j in 0..board[0].len() {
             if board[i][j] == ' ' {
                 board[i][j] = active_char;
-                let score = minimax(board, depth + 1, !is_maxing, other_char, human_char);
+                let score = minimax(
+                    board,
+                    depth + 1,
+                    !is_maxing,
+                    other_char,
+                    human_char,
+                    alpha,
+                    beta,
+                );
                 board[i][j] = ' ';
-                if (score > best_score && is_maxing) || (score < best_score && !is_maxing) {
-                    best_score = score;
+                if is_maxing {
+                    best_score = best_score.max(score);
+                    alpha = alpha.max(score);
+                    if beta <= alpha {
+                        return best_score - (depth as f32);
+                    }
+                } else {
+                    best_score = best_score.min(score);
+                    beta = beta.min(score);
+                    if beta <= alpha {
+                        return best_score - (depth as f32);
+                    }
                 }
             }
         }
@@ -70,7 +90,15 @@ pub fn ai_best_move(
         for j in 0..y_length {
             if board[i][j] == ' ' {
                 board[i][j] = ai_char;
-                let score = minimax(board, 0, false, human_char, human_char);
+                let score = minimax(
+                    board,
+                    0,
+                    false,
+                    human_char,
+                    human_char,
+                    f32::NEG_INFINITY,
+                    f32::INFINITY,
+                );
                 board[i][j] = ' ';
                 if score > best_score {
                     best_score = score;
