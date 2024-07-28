@@ -1,27 +1,32 @@
-pub fn check_winner(board: Vec<Vec<char>>, active_char: char, turn_no: usize) -> char {
+pub fn check_winner(board: Vec<Vec<char>>, active_char: char) -> char {
     return if is_win(board.clone(), active_char) {
         active_char
-    } else if turn_no == board.len() * board[0].len() {
+    } else if board.iter().all(|v| v.iter().all(|&x| x != ' ')) {
         'D'
     } else {
         ' '
     };
 }
 
-fn is_win(board: Vec<Vec<char>>, active_char: char) -> bool {
+pub fn is_win(board: Vec<Vec<char>>, active_char: char) -> bool {
+    let size = board.len();
+
+    // check rows and cols
     for i in 0..board.len() {
         if board[i].iter().all(|&x| x == active_char) {
             return true;
         }
-        if board.iter().all(|&x| x[i] == active_char) {
+        if board.iter().all(|v| v[i] == active_char) {
             return true;
         }
     }
-    if board.iter().enumerate().all(|(i, &x)| x[i][i] == active_char){
+    // Check diagonals
+    if (0..size).all(|i| board[i][i] == active_char) {
         return true;
     }
-    if board.iter().enumerate().all(|(i, &x)| x[i][board.len()-i] == active_char){
+    if (0..size).all(|i| board[i][size - 1 - i] == active_char) {
         return true;
     }
+
     return false;
 }
