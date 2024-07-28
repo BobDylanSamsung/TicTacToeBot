@@ -1,5 +1,4 @@
 use crate::game_utils;
-use crate::user_utils;
 
 fn minimax(
     board: &mut Vec<Vec<char>>,
@@ -70,7 +69,6 @@ pub fn ai_best_move(board: &mut Vec<Vec<char>>, ai_char: char, human_char: char)
                 board[i][j] = ai_char;
                 let score = minimax(board, false, 1, ai_char, human_char);
                 board[i][j] = ' ';
-                let move_num = user_utils::move_array_to_num([i, j], x_length);
                 if score > best_score {
                     best_score = score;
                     best_move = [i, j];

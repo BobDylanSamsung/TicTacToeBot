@@ -27,10 +27,6 @@ pub fn ask_player_move(board: Vec<Vec<char>>, human_char: char) -> [usize; 2] {
     }
 }
 
-fn move_array_to_num(move_arr: [usize; 2], board_rows: usize) -> usize {
-    return move_arr[0] * board_rows + move_arr[1] + 1;
-}
-
 fn move_num_to_array(num: usize, board_rows: usize) -> [usize; 2] {
     let i: usize = (num - 1) / board_rows;
     let j: usize = (num - 1) % board_rows;
