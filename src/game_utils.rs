@@ -7,7 +7,7 @@ pub fn check_winner(board: Vec<Vec<char>>) -> char {
         'D'
     } else {
         ' '
-    }
+    };
 }
 
 fn is_win(board: Vec<Vec<char>>, player_char: char) -> bool {
@@ -47,5 +47,5 @@ fn is_draw(board: Vec<Vec<char>>) -> bool {
     if filled_count == x_length * y_length {
         return true;
     }
-    return false
+    return false;
 }

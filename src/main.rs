@@ -15,10 +15,8 @@ fn main() {
         board_utils::fill_box(&mut board, human_move[0], human_move[1], human_char);
         board_utils::print_board(board.clone());
 
-        if game_utils::check_winner(board.clone()) == human_char{
+        if game_utils::check_winner(board.clone()) == human_char {
             return;
         }
     }
-
 }
-

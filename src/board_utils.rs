@@ -9,7 +9,6 @@ pub fn clear_screen() {
     print!("\x1B[2J\x1B[1;1H");
 }
 
-
 pub fn fill_box(board: &mut Vec<Vec<char>>, x: usize, y: usize, player_char: char) {
     if let Some(row) = board.get_mut(x) {
         if let Some(element) = row.get_mut(y) {
