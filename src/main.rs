@@ -30,7 +30,7 @@ fn main() {
 
         fill_box(&mut board, current_move[0], current_move[1], active_char);
         turn_no += 1;
-        winner = check_winner(board.clone());
+        winner = check_winner(board.clone(), active_char, turn_no);
 
     }
 
